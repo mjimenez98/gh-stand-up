@@ -3,7 +3,8 @@ package github
 import (
 	"fmt"
 	"net/url"
-	"time"
+
+	"github.com/mjimenez98/gh-stand-up/internal/helpers"
 )
 
 // PullRequestSearch represents the response from the GitHub API for searching pull requests.
@@ -20,11 +21,8 @@ type PullRequest struct {
 
 // GetOpenedPullRequests retrieves the pull requests opened the day before by the given user.
 func (c *Client) GetOpenedPullRequests(userLogin string) ([]PullRequest, error) {
-	currentTime := time.Now()
-	yesterday := currentTime.AddDate(0, 0, -1).Format("2006-01-02")
-
 	query := url.Values{}
-	query.Add("q", fmt.Sprintf("is:pr author:%s created:%s", userLogin, yesterday))
+	query.Add("q", fmt.Sprintf("is:pr author:%s created:%s", userLogin, helpers.GetYesterdayDate()))
 	query.Add("per_page", "30")
 	path := fmt.Sprintf("search/issues?%s", query.Encode())
 

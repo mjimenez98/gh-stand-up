@@ -3,7 +3,8 @@ package github
 import (
 	"fmt"
 	"net/url"
-	"time"
+
+	"github.com/mjimenez98/gh-stand-up/internal/helpers"
 )
 
 // IssueSearch represents the response from the GitHub API for searching issues.
@@ -20,11 +21,8 @@ type Issue struct {
 
 // GetOpenedIssues retrieves the issues opened the day before by the given user.
 func (c *Client) GetOpenedIssues(userLogin string) ([]Issue, error) {
-	currentTime := time.Now()
-	yesterday := currentTime.AddDate(0, 0, -1).Format("2006-01-02")
-
 	query := url.Values{}
-	query.Add("q", fmt.Sprintf("is:issue author:%s created:%s", userLogin, yesterday))
+	query.Add("q", fmt.Sprintf("is:issue author:%s created:%s", userLogin, helpers.GetYesterdayDate()))
 	query.Add("per_page", "30")
 	path := fmt.Sprintf("search/issues?%s", query.Encode())
 

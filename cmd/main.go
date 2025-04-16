@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	github "github.com/mjimenez98/gh-stand-up/internal"
+	"github.com/mjimenez98/gh-stand-up/internal/github"
 )
 
 func main() {
