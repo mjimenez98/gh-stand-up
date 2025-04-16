@@ -3,6 +3,7 @@ package github
 import (
 	"fmt"
 	"net/url"
+	"strings"
 
 	"github.com/mjimenez98/gh-stand-up/internal/helpers"
 )
@@ -15,8 +16,11 @@ type PullRequestSearch struct {
 
 // PullRequest represents a GitHub pull request.
 type PullRequest struct {
-	Title string `json:"title"`
-	URL   string `json:"html_url"`
+	Author        User   `json:"user"`
+	Number        int    `json:"number"`
+	Title         string `json:"title"`
+	RepositoryUrl string `json:"repository_url"`
+	URL           string `json:"html_url"`
 }
 
 // GetOpenedPullRequests retrieves the pull requests opened the day before by the given user.
@@ -33,4 +37,17 @@ func (c *Client) GetOpenedPullRequests(userLogin string) ([]PullRequest, error) 
 	}
 
 	return response.PullRequests, nil
+}
+
+func (p *PullRequest) ownerRepo() string {
+	// Example repository URL: "https://api.github.com/repos/batterseapower/pinyin-toolkit"
+	prefix := "/repos/"
+	index := strings.Index(p.RepositoryUrl, prefix)
+	if index != -1 {
+		substring := p.RepositoryUrl[index+len(prefix):]
+		return substring
+	} else {
+		fmt.Println("Prefix not found in the URL")
+		return ""
+	}
 }
