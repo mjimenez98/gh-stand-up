@@ -28,9 +28,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error processing pull requests opened for yesterday's report: %v", err)
 	}
+	pullRequestsReviewed, err := client.GetPullRequestsReviewed(user.Login)
+	if err != nil {
+		log.Fatalf("Error processing pull request reviews for yesterday's report: %v", err)
+	}
 
 	// Generate yesterday's report.
 	fmt.Printf("Hi %s 🙌\n\n", user.Login)
-	update := report.GenerateYestedayReport(openedIssues, openedPullRequests)
+	update := report.GenerateYestedayReport(openedIssues, openedPullRequests, pullRequestsReviewed)
 	fmt.Println(update)
 }
