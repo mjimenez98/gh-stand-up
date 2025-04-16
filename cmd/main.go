@@ -8,6 +8,11 @@ import (
 
 func main() {
 	client := github.NewClient()
+	if client == nil {
+		fmt.Println("Failed to create GitHub client")
+		return
+	}
+
 	user := client.GetUser()
 	openedIssues := client.GetOpenedIssues(user.Login)
 
