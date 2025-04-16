@@ -23,11 +23,18 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error processing issues opened for yesterday's report: %v", err)
 	}
+	openedPullRequests, err := client.GetOpenedPullRequests(user.Login)
+	if err != nil {
+		log.Fatalf("Error processing pull requests opened for yesterday's report: %v", err)
+	}
 
 	// Generate yesterday's report
 	fmt.Printf("Hi %s 🙌\n\n", user.Login)
 	fmt.Println("This is what you did yesterday:")
 	for _, issue := range openedIssues {
 		fmt.Printf("- You opened the issue: %s\n", issue.URL)
+	}
+	for _, pull_request := range openedPullRequests {
+		fmt.Printf("- You opened the pull request: %s\n", pull_request.URL)
 	}
 }
