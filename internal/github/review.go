@@ -30,7 +30,7 @@ func (c *Client) GetPullRequestsReviewed(userLogin string) ([]PullRequest, error
 	var response PullRequestSearch
 	err := c.Client.Get(path, &response)
 	if err != nil {
-		return nil, fmt.Errorf("Error searching pull request reviews: %w", err)
+		return nil, fmt.Errorf("error searching pull request reviews: %w", err)
 	}
 
 	// Filter out pull requests that were not created yesterday.
@@ -43,7 +43,7 @@ func (c *Client) GetPullRequestsReviewed(userLogin string) ([]PullRequest, error
 		var reviews []PullRequestReview
 		err := c.Client.Get(query, &reviews)
 		if err != nil {
-			return nil, fmt.Errorf("Error getting pull request for review: %w", err)
+			return nil, fmt.Errorf("error getting pull request for review: %w", err)
 		}
 
 		// GitHub API does not guarantee the order of reviews, so we need to check each review.

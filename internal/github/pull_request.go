@@ -36,7 +36,7 @@ func (c *Client) GetOpenedPullRequests(userLogin string) ([]PullRequest, error) 
 	var response PullRequestSearch
 	err := c.Client.Get(path, &response)
 	if err != nil {
-		return nil, fmt.Errorf("Error searching pull requests: %w", err)
+		return nil, fmt.Errorf("error searching pull requests: %w", err)
 	}
 
 	return response.PullRequests, nil

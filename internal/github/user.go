@@ -14,7 +14,7 @@ func (c *Client) GetUser() (User, error) {
 
 	err := c.Client.Get("user", &response)
 	if err != nil {
-		return User{}, fmt.Errorf("Error retrieving user information: %w", err)
+		return User{}, fmt.Errorf("error retrieving user information: %w", err)
 	}
 
 	return response, nil
