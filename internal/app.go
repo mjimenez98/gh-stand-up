@@ -14,14 +14,13 @@ type Client struct {
 }
 
 // NewClient creates a new GitHub API client.
-func NewClient() *Client {
+func NewClient() (*Client, error) {
 	client, err := api.DefaultRESTClient()
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		return nil, fmt.Errorf("failed to create REST client: %w", err)
 	}
 
 	return &Client{
 		Client: client,
-	}
+	}, nil
 }

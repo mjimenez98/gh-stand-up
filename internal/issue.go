@@ -19,7 +19,7 @@ type Issue struct {
 }
 
 // GetOpenedIssues retrieves the issues opened the day before by the given user.
-func (c *Client) GetOpenedIssues(userLogin string) []Issue {
+func (c *Client) GetOpenedIssues(userLogin string) ([]Issue, error) {
 	currentTime := time.Now()
 	yesterday := currentTime.AddDate(0, 0, -1).Format("2006-01-02")
 
@@ -31,9 +31,8 @@ func (c *Client) GetOpenedIssues(userLogin string) []Issue {
 	var response IssueSearch
 	err := c.Client.Get(path, &response)
 	if err != nil {
-		fmt.Println("Error searching issues:", err)
-		return nil
+		return nil, fmt.Errorf("Error searching issues: %w", err)
 	}
 
-	return response.Issues
+	return response.Issues, nil
 }
