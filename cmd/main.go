@@ -9,10 +9,11 @@ import (
 func main() {
 	client := github.NewClient()
 	user := client.GetUser()
+	openedIssues := client.GetOpenedIssues(user.Login)
 
-	// Generate report
-	fmt.Printf("Hi %s, your stand-up update is coming soon\n", user.Login)
+	fmt.Printf("Hi %s 🙌\n\n", user.Login)
+	fmt.Println("This is what you did yesterday:")
+	for _, issue := range openedIssues {
+		fmt.Printf("- You opened the issue: %s\n", issue.URL)
+	}
 }
-
-// For more examples of using go-gh, see:
-// https://github.com/cli/go-gh/blob/trunk/example_gh_test.go
