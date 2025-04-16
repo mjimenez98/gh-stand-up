@@ -23,6 +23,9 @@ type PullRequest struct {
 	URL           string `json:"html_url"`
 }
 
+// Example repository URL: "https://api.github.com/repos/batterseapower/pinyin-toolkit"
+const reposPrefix = "/repos/"
+
 // GetOpenedPullRequests retrieves the pull requests opened the day before by the given user.
 func (c *Client) GetOpenedPullRequests(userLogin string) ([]PullRequest, error) {
 	query := url.Values{}
@@ -39,15 +42,14 @@ func (c *Client) GetOpenedPullRequests(userLogin string) ([]PullRequest, error) 
 	return response.PullRequests, nil
 }
 
-func (p *PullRequest) ownerRepo() string {
-	// Example repository URL: "https://api.github.com/repos/batterseapower/pinyin-toolkit"
-	prefix := "/repos/"
-	index := strings.Index(p.RepositoryUrl, prefix)
+// parseRepositoryUrl extracts the repository owner and name from the repository URL.
+// It assumes the URL is in the format "https://api.github.com/repos/{owner}/{repo}".
+func (p *PullRequest) repoWithOwner() string {
+	index := strings.Index(p.RepositoryUrl, reposPrefix)
 	if index != -1 {
-		substring := p.RepositoryUrl[index+len(prefix):]
+		substring := p.RepositoryUrl[index+len(reposPrefix):]
 		return substring
-	} else {
-		fmt.Println("Prefix not found in the URL")
-		return ""
 	}
+
+	return ""
 }

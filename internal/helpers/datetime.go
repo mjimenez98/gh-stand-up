@@ -11,6 +11,7 @@ func GetYesterdayDate() string {
 	return currentTime.AddDate(0, 0, -1).Format("2006-01-02")
 }
 
+// GetYesterdayDateTime returns the date and time of yesterday at 00:00:00 in the local timezone.
 func GetYesterdayDateTime() time.Time {
 	currentTime := time.Now()
 	currentTime = currentTime.AddDate(0, 0, -1)
