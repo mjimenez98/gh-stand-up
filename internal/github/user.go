@@ -9,14 +9,13 @@ type User struct {
 }
 
 // GetUser retrieves the user information from the GitHub API.
-func (c *Client) GetUser() User {
+func (c *Client) GetUser() (User, error) {
 	var response User
 
 	err := c.Client.Get("user", &response)
 	if err != nil {
-		fmt.Println(err)
-		return User{}
+		return User{}, fmt.Errorf("Error retrieving user information: %w", err)
 	}
 
-	return response
+	return response, nil
 }
