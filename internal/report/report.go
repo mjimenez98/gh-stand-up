@@ -27,3 +27,18 @@ func GenerateYesterdayReport(openedIssues []github.Issue, openedPullRequests []g
 
 	return update
 }
+
+// GenerateTodayReport generates a report of what the user should address today.
+func GenerateTodayReport(openPullRequests []github.PullRequest) string {
+	if len(openPullRequests) == 0 {
+		return "No open pull requests to work on.\n"
+	}
+
+	update := "This is work you have in progress or have yet to address:\n"
+
+	for _, pull_request := range openPullRequests {
+		update += fmt.Sprintf("🔨 Work on %s - %s\n", pull_request.Title, pull_request.URL)
+	}
+
+	return update
+}
