@@ -35,6 +35,6 @@ func main() {
 
 	// Generate yesterday's report.
 	fmt.Printf("Hi %s 🙌\n\n", user.Login)
-	update := report.GenerateYestedayReport(openedIssues, openedPullRequests, pullRequestsReviewed)
+	update := report.GenerateYesterdayReport(openedIssues, openedPullRequests, pullRequestsReviewed)
 	fmt.Println(update)
 }

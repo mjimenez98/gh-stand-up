@@ -7,8 +7,8 @@ import (
 	"github.com/mjimenez98/gh-stand-up/internal/github"
 )
 
-// GenerateYestedayReport generates a report of the user's activity for the previous day.
-func GenerateYestedayReport(openedIssues []github.Issue, openedPullRequests []github.PullRequest, pullRequestsReviewed []github.PullRequest) string {
+// GenerateYesterdayReport generates a report of the user's activity for the previous day.
+func GenerateYesterdayReport(openedIssues []github.Issue, openedPullRequests []github.PullRequest, pullRequestsReviewed []github.PullRequest) string {
 	if len(openedIssues) == 0 && len(openedPullRequests) == 0 && len(pullRequestsReviewed) == 0 {
 		return "No activity detected yesterday.\n"
 	}
