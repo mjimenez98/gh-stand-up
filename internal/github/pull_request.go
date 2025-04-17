@@ -58,7 +58,7 @@ func (p *Client) GetOpenPullRequests(userLogin string) ([]PullRequest, error) {
 	return response.PullRequests, nil
 }
 
-// parseRepositoryUrl extracts the repository owner and name from the repository URL.
+// repoWithOwner extracts the repository owner and name from the repository URL.
 // It assumes the URL is in the format "https://api.github.com/repos/{owner}/{repo}".
 func (p *PullRequest) repoWithOwner() string {
 	index := strings.Index(p.RepositoryUrl, reposPrefix)
