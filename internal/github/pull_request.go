@@ -36,7 +36,23 @@ func (c *Client) GetOpenedPullRequests(userLogin string) ([]PullRequest, error) 
 	var response PullRequestSearch
 	err := c.Client.Get(path, &response)
 	if err != nil {
-		return nil, fmt.Errorf("error searching pull requests: %w", err)
+		return nil, fmt.Errorf("error searching opened pull requests: %w", err)
+	}
+
+	return response.PullRequests, nil
+}
+
+// GetOpenPullRequests retrieves the open pull requests for the given user.
+func (p *Client) GetOpenPullRequests(userLogin string) ([]PullRequest, error) {
+	query := url.Values{}
+	query.Add("q", fmt.Sprintf("is:pr author:%s is:open", userLogin))
+	query.Add("per_page", "30")
+	path := fmt.Sprintf("search/issues?%s", query.Encode())
+
+	var response PullRequestSearch
+	err := p.Client.Get(path, &response)
+	if err != nil {
+		return nil, fmt.Errorf("error searching open pull requests: %w", err)
 	}
 
 	return response.PullRequests, nil

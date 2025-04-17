@@ -34,7 +34,16 @@ func main() {
 	}
 
 	// Generate yesterday's report.
-	fmt.Printf("Hi %s 🙌\n\n", user.Login)
 	update := report.GenerateYesterdayReport(openedIssues, openedPullRequests, pullRequestsReviewed)
+	fmt.Println(update)
+
+	// Get information to generate today's report.
+	openPullRequests, err := client.GetOpenPullRequests(user.Login)
+	if err != nil {
+		log.Fatalf("Error processing open issues for today's report: %v", err)
+	}
+
+	fmt.Println("\n---")
+	update = report.GenerateTodayReport(openPullRequests)
 	fmt.Println(update)
 }
