@@ -29,7 +29,7 @@ func (c *Client) GetOpenedIssues(userLogin string) ([]Issue, error) {
 	var response IssueSearch
 	err := c.Client.Get(path, &response)
 	if err != nil {
-		return nil, fmt.Errorf("Error searching issues: %w", err)
+		return nil, fmt.Errorf("error searching issues: %w", err)
 	}
 
 	return response.Issues, nil
