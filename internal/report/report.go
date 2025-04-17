@@ -1,4 +1,4 @@
-// Package report
+// Package report provides functionality to generate reports based on GitHub activity.
 package report
 
 import (
