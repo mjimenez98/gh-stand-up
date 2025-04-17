@@ -11,7 +11,7 @@ import (
 func TestDoesNotGenerateReportWhenNoActivity(t *testing.T) {
 	generatedReport := GenerateYestedayReport([]github.Issue{}, []github.PullRequest{}, []github.PullRequest{})
 
-	assert.Equal(t, "This is what you did yesterday:\n", generatedReport, "Generated report does not match expected output when no activity")
+	assert.Equal(t, "No activity detected yesterday.\n", generatedReport, "Generated report does not match expected output when no activity")
 }
 
 func TestGenerateYesterdayReportWithOpenIssues(t *testing.T) {

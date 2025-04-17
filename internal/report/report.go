@@ -9,6 +9,10 @@ import (
 
 // GenerateYestedayReport generates a report of the user's activity for the previous day.
 func GenerateYestedayReport(openedIssues []github.Issue, openedPullRequests []github.PullRequest, pullRequestsReviewed []github.PullRequest) string {
+	if len(openedIssues) == 0 && len(openedPullRequests) == 0 && len(pullRequestsReviewed) == 0 {
+		return "No activity detected yesterday.\n"
+	}
+
 	update := "This is what you did yesterday:\n"
 
 	for _, pull_request := range pullRequestsReviewed {
